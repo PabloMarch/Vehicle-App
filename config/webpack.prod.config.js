@@ -2,7 +2,8 @@ const webpack = require('webpack');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const CleanWebPackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const PATHS = require('./paths');
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const PATHS = require('./webpack.paths');
 
 const config = {
   mode: 'production',
@@ -16,6 +17,7 @@ const config = {
     chunkModules: true,
     modules: true,
     children: true,
+    warnings: false
   },
   recordsPath: PATHS.recordsPath,
   optimization: {
@@ -33,6 +35,7 @@ const config = {
       }
     },
     minimizer: [
+      new OptimizeCSSAssetsPlugin(),
       new UglifyJsPlugin({
         uglifyOptions: {
           compress: true,
@@ -58,12 +61,12 @@ const config = {
       verbose: true,
       dry: false
     }),
-    new webpack.LoaderOptionsPlugin({
-      minimize: true,
-      debug: false
-    }),
+    // new webpack.LoaderOptionsPlugin({
+    //   minimize: true,
+    //   debug: false
+    // }),
     new MiniCssExtractPlugin({
-      filename: 'app.bundle.[chunkhash].css'
+      filename: 'app.bundle.css'
     }),
   ]
 };

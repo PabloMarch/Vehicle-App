@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const PATHS = require('./paths');
+const PATHS = require('./webpack.paths');
 const pkg = require('../package.json');
 
 const devMode = process.env.NODE_ENV !== 'prod';
@@ -9,15 +9,18 @@ const devMode = process.env.NODE_ENV !== 'prod';
 const config = {
   entry: {
     vendor: Object.keys(pkg.dependencies),
-    app: './app/index.js'
+    app: './src/index.js'
   },
   output: {
     path: PATHS.outputPath,
-    filename: '[name].bundle.[chunkhash].js',
-    chunkFilename: '[name].bundle.[chunkhash].js'
+    filename: '[name].bundle.js',
+    chunkFilename: '[name].bundle.js'
   },
   resolve: {
-    modules: [ 'app', 'node_modules', 'components', './' ],
+    alias: {
+      components: PATHS.components,
+      src: PATHS.app
+    },
     extensions: ['*', '.js', '.jsx']
   },
   module: {
@@ -59,6 +62,10 @@ const config = {
   },
   plugins: [
     new webpack.ProgressPlugin(),
+    new webpack.ProvidePlugin({
+      'Promise': 'exports-loader?global.Promise!es6-promise',
+      'fetch': 'exports-loader?self.fetch!whatwg-fetch'
+    }),
     new HtmlWebPackPlugin({
       template: PATHS.template,
       favicon: PATHS.favicon,

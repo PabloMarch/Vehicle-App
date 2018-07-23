@@ -1,5 +1,5 @@
-# Webpack 4 - React-Redux
-### Starting project with minimal config
+# Vehicles List App
+### Migration of Angular Project
 
 - version: 1.0.0
 

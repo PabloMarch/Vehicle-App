@@ -1,14 +1,24 @@
-const PATHS = require('./paths');
+const webpack = require('webpack');
+const ReactJssHmrPlugin = require('react-jss-hmr/webpack');
+const PATHS = require('./webpack.paths');
 
 const config = {
     mode: 'development',
     devtool: 'inline-source-map',
+    plugins: [
+      new webpack.HotModuleReplacementPlugin()
+    ],
+    resolve: {
+      plugins: [
+        new ReactJssHmrPlugin()
+      ]
+    },
     devServer: {
-        contentBase: PATHS.outputPath,
-        compress: true,
-        historyApiFallback: true,
-        hot: false,
-        port: 8080
+      contentBase: PATHS.outputPath,
+      compress: false,
+      historyApiFallback: true,
+      hot: true,
+      port: 8080
     }
 };
 
