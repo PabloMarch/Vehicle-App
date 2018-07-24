@@ -1,22 +1,21 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import { connect } from 'react-redux';
 
-import vehiclesData from 'src/data/vehiclesData.json';
-import VehiclesList from './VehiclesList';
+// Actions
+import { fetchVehicles, createVehicle, updateVehicle } from 'src/store/vehicles-list/actions'
 
+// Presentational
+import VehiclesList from './VehiclesList'
+
+// Container
 class VehicleListContainer extends Component {
-  constructor () {
-    super();
-    this.state = { vehicles: [] }
-  }
-
   componentDidMount() {
-    this.setState({ vehicles: vehiclesData.data });
+    this.props.dispatch(fetchVehicles());
   }
 
   render () {
-    const { vehicles } = this.state;
-    return <VehiclesList vehicles={vehicles} />
+    return <VehiclesList vehicles={this.props.data} />
   }
 }
 
-export default VehicleListContainer;
+export default connect(state => ({ data: state.vehiclesList }))(VehicleListContainer)

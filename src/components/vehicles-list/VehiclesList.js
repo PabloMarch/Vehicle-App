@@ -7,72 +7,38 @@ import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
+import styles from './styles'
 
-const CustomTableCell = withStyles(theme => ({
-  head: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white
-  },
-  body: {
-    fontSize: 14,
-  },
-}))(TableCell);
-
-const styles = theme => ({
-  root: {
-    maxWidth: 960,
-    margin: `${theme.spacing.unit * 3}px auto 0`,
-    overflowX: 'auto'
-  },
-
-  table: {
-    minWidth: 700,
-
-    '& th, & td': {
-      textAlign: 'center',
-
-      '&:first-child': {
-        textAlign: 'left'
-      }
-    }
-  },
-  row: {
-    '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.background.default
-    },
-  },
-});
-
+// Presentational
 const VehicleList = ({ classes, vehicles }) => (
   <Paper className={classes.root}>
     <Table className={classes.table}>
-      <TableHead>
+      <TableHead className={classes.head}>
         <TableRow>
-          <CustomTableCell>Brand</CustomTableCell>
-          <CustomTableCell>Model</CustomTableCell>
-          <CustomTableCell>Year</CustomTableCell>
-          <CustomTableCell>Color</CustomTableCell>
+          <TableCell>Brand</TableCell>
+          <TableCell>Model</TableCell>
+          <TableCell>Year</TableCell>
+          <TableCell>Color</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
-        {vehicles.map(({ id, brand, model, year, color }) => {
-          return (
-            <TableRow key={id} className={classes.row}>
-              <CustomTableCell component="th" scope="row">{brand}</CustomTableCell>
-              <CustomTableCell>{model}</CustomTableCell>
-              <CustomTableCell>{year}</CustomTableCell>
-              <CustomTableCell>{color}</CustomTableCell>
-            </TableRow>
-          );
-        })}
+        {Object.values(vehicles).map(({ id, brand, model, year, color }) => (
+          <TableRow key={id} className={classes.row}>
+            <TableCell component="th" scope="row">{brand}</TableCell>
+            <TableCell>{model}</TableCell>
+            <TableCell>{year}</TableCell>
+            <TableCell>{color}</TableCell>
+          </TableRow>
+        ))}
       </TableBody>
     </Table>
   </Paper>
-);
+)
 
+// Props
 VehicleList.propTypes = {
   classes: PropTypes.object.isRequired,
-  vehicles: PropTypes.arrayOf(
+  vehicles: PropTypes.objectOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       brand: PropTypes.string,
@@ -81,6 +47,6 @@ VehicleList.propTypes = {
       color: PropTypes.string,
     })
   ).isRequired
-};
+}
 
 export default withStyles(styles)(VehicleList);

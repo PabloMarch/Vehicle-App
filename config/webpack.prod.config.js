@@ -61,10 +61,6 @@ const config = {
       verbose: true,
       dry: false
     }),
-    // new webpack.LoaderOptionsPlugin({
-    //   minimize: true,
-    //   debug: false
-    // }),
     new MiniCssExtractPlugin({
       filename: 'app.bundle.css'
     }),

@@ -21,7 +21,7 @@ const config = {
       components: PATHS.components,
       src: PATHS.app
     },
-    extensions: ['*', '.js', '.jsx']
+    extensions: ['*', '.js', '.jsx', '.jss', '.json']
   },
   module: {
     rules: [
