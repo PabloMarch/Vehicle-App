@@ -5,6 +5,21 @@ const PATHS = require('./webpack.paths');
 const config = {
     mode: 'development',
     devtool: 'inline-source-map',
+    optimization: {
+      runtimeChunk: {
+        name: 'manifest',
+      },
+      splitChunks: {
+        cacheGroups: {
+          vendor: {
+             test: /[\\/]node_modules[\\/]/,
+             name: 'vendor',
+             chunks: 'initial',
+             enforce: true
+           }
+        }
+      },
+    },
     plugins: [
       new webpack.HotModuleReplacementPlugin()
     ],

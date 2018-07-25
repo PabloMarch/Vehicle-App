@@ -14,7 +14,7 @@ const config = {
   output: {
     path: PATHS.outputPath,
     filename: '[name].bundle.js',
-    chunkFilename: '[name].bundle.js'
+    chunkFilename: '[name].[chunkhash].js',
   },
   resolve: {
     alias: {

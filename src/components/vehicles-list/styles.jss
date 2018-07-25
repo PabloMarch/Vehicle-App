@@ -5,16 +5,15 @@ export default theme => ({
     overflowX: 'auto',
   },
 
+  progress: {
+    textAlign: 'center',
+    paddingTop: 30,
+    paddingBottom: 30,
+  },
+
   table: {
+    fontSize: 17,
     minWidth: 700,
-
-    '& th, & td': {
-      textAlign: 'center',
-
-      '&:first-child': {
-        textAlign: 'left',
-      }
-    }
   },
 
   head: {
@@ -22,13 +21,25 @@ export default theme => ({
 
     '& th': {
       color: theme.palette.common.white,
-      fontSize: '16px',
+      fontWeight: 600,
     }
   },
 
   row: {
-    '&:nth-of-type(odd)': {
+    '& th, & td': {
+      textAlign: 'center',
+
+      '&:first-child': {
+        textAlign: 'left',
+      }
+    },
+
+    '&:nth-of-type(even)': {
       backgroundColor: theme.palette.background.default,
     },
+  },
+
+  icon: {
+    fontSize: 18
   },
 })

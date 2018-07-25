@@ -11,18 +11,38 @@ export const setVehicles = createAction('SET_VEHICLES')
 
 // Fetch vehicles
 export const fetchVehicles = () => async dispatch => {
-  const response = await delay(2000) // dispatch(Api.get('api/vehicles')) // <= Once API is connected
-  dispatch(setVehicles(vehiclesData.data))
+  try {
+    const response = await delay(2000) // dispatch(Api.get('api/vehicles')) // <= Once API is connected
+    dispatch(setVehicles(response.data))
+  } catch (err) {
+    dispatch(setVehicles(err))
+  }
 }
 
-// Create vehicles
-export const createVehicle = data => async (dispatch) => {
+// Create vehicle
+export const createVehicle = data => async dispatch => {
   // await dispatch(Api.post('api/vehicles', data))
-  await dispatch(fetchVehicles())
+  // await dispatch(fetchVehicles())
+  console.log('createVehicle::', data)
 }
 
-// Update vehicles
-export const updateVehicle = data => async (dispatch) => {
-  // const response = await dispatch(Api.put(`api/vehicles/${data.id}`, data))
-  dispatch(setVehicles(response.data))
+// Update vehicle
+export const updateVehicle = data => async (dispatch, getState) => {
+  const { vehiclesList } = getState()
+  data.brand = 'EDITED TEST'
+  dispatch(setVehicles({ [data.id]: data }))
+}
+
+// Delete vehicle
+export const deleteVehicle = data => async (dispatch, getState) => {
+  dispatch(setVehicles({ [data.id]: data }))
+  // const { vehiclesList } = getState()
+  // const filteredVehicles = Object.keys(vehiclesList).reduce( (accumulator, key) => (
+  //    vehiclesList[key].id === data.id ? accumulator : {
+  //        ...accumulator,
+  //        [key]: vehiclesList[key]
+  //    }
+  // ), {})
+  // console.log('deleteVehicle::', filteredVehicles)
+  // dispatch(setVehicles(filteredVehicles))
 }

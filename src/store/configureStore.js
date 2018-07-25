@@ -14,5 +14,8 @@ if (process.env.NODE_ENV !== 'prod') {
 export default (initialState) => createStore(
   reducers,
   initialState,
-  compose(applyMiddleware(...middlewares))
+  compose(
+    applyMiddleware(...middlewares),
+    window.devToolsExtension ? window.devToolsExtension() : f => f,
+  )
 )

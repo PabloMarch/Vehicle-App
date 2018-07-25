@@ -21,19 +21,6 @@ const config = {
   },
   recordsPath: PATHS.recordsPath,
   optimization: {
-    runtimeChunk: {
-      name: "manifest",
-    },
-    splitChunks: {
-      cacheGroups: {
-        vendor: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendor',
-          enforce: true,
-          chunks: 'all'
-        }
-      }
-    },
     minimizer: [
       new OptimizeCSSAssetsPlugin(),
       new UglifyJsPlugin({
